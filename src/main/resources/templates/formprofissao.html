@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista Pacientes</title>
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<a th:href="@{listapaciente}">Add Pacientes</a>
+        <h2>Formulário Profissão</h2>
+		
+		<form action="salvarProf" method="post">
+			<div class="form-group">
+				<label for="nome">Nome</label> 
+				<input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
+			</div>
+			
+			
+			<br />
+			
+			<div class="form-group">
+				<button type="submit" class="btn btn-success">Gravar</button>
+			</div>
+		</form>
+
+	</div>
+	<script src="bootstrap/js/ajax.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
