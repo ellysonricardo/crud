@@ -1,6 +1,7 @@
 package br.ufrj.hucff.crud.controller;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.ufrj.hucff.crud.modelo.Endereco;
 import br.ufrj.hucff.crud.modelo.Paciente;
 import br.ufrj.hucff.crud.modelo.Profissao;
 import br.ufrj.hucff.crud.repository.PacienteRepository;
@@ -43,10 +45,14 @@ public class PacienteController {
 		return "listapacientes";
 	}
 	
+	
 	@RequestMapping(value = "salvar", method = RequestMethod.POST)
 	public String salvar(@RequestParam("nome") String nome, @RequestParam("idade") Integer idade, @RequestParam("prontuarios") 
-	String[] prontuarios , @RequestParam("profissoes") Set<Profissao> profissoes, Model model) {
-		Paciente paciente = new Paciente(nome, idade, prontuarios, profissoes);
+	String[] prontuarios ,@RequestParam("profissoes") List<Profissao> profissoes, @RequestParam Map<String,String> allParams, Model model) {
+	    Integer numero = Integer.valueOf((allParams.get("numero")));
+	    Integer cep = Integer.valueOf((allParams.get("cep")));
+		Endereco endereco = new Endereco(allParams.get("rua"), numero, allParams.get("bairro"), cep);
+		Paciente paciente = new Paciente(nome, idade, prontuarios, profissoes, endereco);
 		PacienteRepository.save(paciente);
 		Iterable<Paciente> pacientes = PacienteRepository.findAll();
 		model.addAttribute("pacientes",pacientes);
